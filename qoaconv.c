@@ -10,7 +10,7 @@ Define QOACONV_HAS_DRMP3 and QOACONV_HAS_DRFLAC for MP3 and FLAC support
  -"dr_mp3.h" (https://github.com/mackron/dr_libs/blob/master/dr_mp3.h)
  -"dr_flac.h" (https://github.com/mackron/dr_libs/blob/master/dr_flac.h)
 
-Compile with: 
+Compile with:
 	gcc qoaconv.c -std=gnu99 -lm -O3 -o qoaconv
 
 */
@@ -265,9 +265,9 @@ int main(int argc, char **argv) {
 
 
 	/* Encode output */
-	
+
 	int bytes_written = 0;
-	double psnr = 1.0/0.0;
+	double psnr = INFINITY;
 	if (QOACONV_STR_ENDS_WITH(argv[2], ".wav")) {
 		bytes_written = qoaconv_wav_write(argv[2], sample_data, &desc);
 	}
@@ -287,7 +287,7 @@ int main(int argc, char **argv) {
 
 	printf(
 		"%s: size: %d kb (%d bytes) = %.2f kbit/s, psnr: %.2f db\n",
-		argv[2], bytes_written/1024, bytes_written, 
+		argv[2], bytes_written/1024, bytes_written,
 		(((float)bytes_written*8)/((float)desc.samples/(float)desc.samplerate))/1024, psnr
 	);
 
